@@ -7,13 +7,13 @@ package ru.davidlevi.swing.player.interfaces;
  */
 public interface Player {
 
-    void playerPlay(String fileName);
+  void playerPlay(String fileName);
 
-    void playerStop();
+  void playerStop();
 
-    void playerPause();
+  void playerPause();
 
-    void playerSetVolume(double value);
+  void playerSetVolume(double value);
 
-    void playerRewind(double rewindPosition);
+  void playerRewind(double rewindPosition);
 }

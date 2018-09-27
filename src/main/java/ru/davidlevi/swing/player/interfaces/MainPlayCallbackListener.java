@@ -7,9 +7,9 @@ package ru.davidlevi.swing.player.interfaces;
  */
 public interface MainPlayCallbackListener {
 
-    void callbackPlayStarted(String name);
+  void callbackPlayStarted(String name);
 
-    void callbackProcessScroll(int position);
+  void callbackProcessScroll(int position);
 
-    void callbackPlayFinished();
+  void callbackPlayFinished();
 }

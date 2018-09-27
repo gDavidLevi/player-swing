@@ -9,21 +9,21 @@ import java.io.File;
  */
 public interface Playlist {
 
-    void playlistNext();
+  void playlistNext();
 
-    void playlistPrevious();
+  void playlistPrevious();
 
-    void playlistDelete();
+  void playlistDelete();
 
-    void playlistClear();
+  void playlistClear();
 
-    boolean playlistSearch(String name);
+  boolean playlistSearch(String name);
 
-    void playlistSaveList(File file);
+  void playlistSaveList(File file);
 
-    void playlistOpenFiles(File[] files);
+  void playlistOpenFiles(File[] files);
 
-    void playlistOpenList(File file);
+  void playlistOpenList(File file);
 
-    void playlistPlayFile();
+  void playlistPlayFile();
 }

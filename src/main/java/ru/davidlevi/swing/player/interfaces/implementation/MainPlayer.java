@@ -23,48 +23,50 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  * @author David Levi
  */
 public class MainPlayer implements Player {
-    public static final String MP3_FILE_EXTENSION = "mp3";
-    public static final String MP3_FILE_DESCRIPTION = "Файлы mp3";
-    public static int MAX_VOLUME = 100;
-    /*
-     Библиотека com.googlecode.soundlibs:basicplayer:3.0.0.0
-     */
-    private BasicPlayer basicPlayer = new BasicPlayer();
-    // Song
-    private long songDuration; // длительность, сек.
-    private int songLenghtBytes; // размер песни, байт
-    private String songCurrentFileName; // текущая песня, имя файла
-    private long songPassedSeconds; // прошло с начала проигрывания, сек.
-    private double volumeCurrent; // текущая громкость
 
-    /**
-     * Конструктор
-     *
-     * @param listener объект, который будет получать callback'и их это класса
-     */
-    public MainPlayer(@NotNull final MainPlayCallbackListener listener) {
+  public static final String MP3_FILE_EXTENSION = "mp3";
+  public static final String MP3_FILE_DESCRIPTION = "Файлы mp3";
+  public static int MAX_VOLUME = 100;
+  /*
+   Библиотека com.googlecode.soundlibs:basicplayer:3.0.0.0
+   */
+  private BasicPlayer basicPlayer = new BasicPlayer();
+  // Song
+  private long songDuration; // длительность, сек.
+  private int songLenghtBytes; // размер песни, байт
+  private String songCurrentFileName; // текущая песня, имя файла
+  private long songPassedSeconds; // прошло с начала проигрывания, сек.
+  private double volumeCurrent; // текущая громкость
+
+  /**
+   * Конструктор
+   *
+   * @param listener объект, который будет получать callback'и их это класса
+   */
+  public MainPlayer(@NotNull final MainPlayCallbackListener listener) {
         /*
          Слушаем события плеера из библиотеки basicplayer.jar и отправляем callback'и через
          интерфейс MainPlayCallbackListener в класс MainFrame
          */
-        basicPlayer.addBasicPlayerListener(new BasicPlayerListener() {
-            @Override
-            public void progress(int bytesRead, long microseconds, byte[] pcmData, Map properties) {
-                float progress = -1.0f;
-                if ((bytesRead > 0) && ((songDuration > 0)))
-                    progress = bytesRead * 1.0f / songLenghtBytes * 1.0f;
-                // Сколько секунд прошло
-                songPassedSeconds = (long) (songDuration * progress);
-                if (songDuration != 0) {
-                    int length = Math.round(songPassedSeconds * 1000f / songDuration);
-                    listener.callbackProcessScroll(length); // callback
-                }
-            }
+    basicPlayer.addBasicPlayerListener(new BasicPlayerListener() {
+      @Override
+      public void progress(int bytesRead, long microseconds, byte[] pcmData, Map properties) {
+        float progress = -1.0f;
+        if ((bytesRead > 0) && ((songDuration > 0))) {
+          progress = bytesRead * 1.0f / songLenghtBytes * 1.0f;
+        }
+        // Сколько секунд прошло
+        songPassedSeconds = (long) (songDuration * progress);
+        if (songDuration != 0) {
+          int length = Math.round(songPassedSeconds * 1000f / songDuration);
+          listener.callbackProcessScroll(length); // callback
+        }
+      }
 
-            @Override
-            public void opened(Object o, Map map) {
-                // Вариант 1 определения mp3-тегов
-                //System.out.println(map);
+      @Override
+      public void opened(Object o, Map map) {
+        // Вариант 1 определения mp3-тегов
+        //System.out.println(map);
             /*
                 {mp3.copyright=false,
                 date=,
@@ -103,107 +105,110 @@ public class MainPlayer implements Player {
                 comment=,
                 mp3.mode=0}
              */
-                // Вариант 2 определения mp3-тегов
+        // Вариант 2 определения mp3-тегов
 //                AudioFileFormat audioFileFormat = null;
 //                try {
 //                    audioFileFormat = AudioSystem.getAudioFileFormat(new File(o.toString()));
 //                } catch (UnsupportedAudioFileException | IOException e) {
 //                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, e);
 //                }
-                songDuration = (long) Math.round((((Long) map.get("duration"))) / 1000000f);
-                songLenghtBytes = Math.round(((Integer) map.get("mp3.length.bytes")));
-                // Если есть mp3 тег для имени, то берем его, если нет, то вытаскиваем название из имени файла
-                String songName;
-                if (map.get("title") != null)
-                    songName = map.get("title").toString();
-                else
-                    songName = FileUtils.getFileNameWithoutExtension(new File(o.toString()).getName());
-                // Если длинное название, то укоротить его
-                if (songName.length() > 30)
-                    songName = songName.substring(0, 30) + "...";
-                listener.callbackPlayStarted(songName); // callback
-            }
-
-            @Override
-            public void stateUpdated(BasicPlayerEvent event) {
-                int state = event.getCode();
-                if (state == BasicPlayerEvent.EOM)
-                    listener.callbackPlayFinished(); // callback
-            }
-
-            @Override
-            public void setController(BasicController basicController) {
-            }
-        });
-    }
-
-
-    @Override
-    public void playerPlay(String fileName) {
-        try {
-            // Если включают ту же самую песню, которая была на паузе
-            if (songCurrentFileName != null
-                    && songCurrentFileName.equals(fileName)
-                    && basicPlayer.getStatus() == BasicPlayer.PAUSED) {
-                basicPlayer.resume();
-                return;
-            }
-            File mp3File = new File(fileName);
-            songCurrentFileName = fileName;
-            basicPlayer.open(mp3File);
-            basicPlayer.play();
-            basicPlayer.setGain(volumeCurrent);
-        } catch (BasicPlayerException e) {
-            Logger.getLogger(MainPlayer.class.getName()).log(Level.SEVERE, null, e);
+        songDuration = (long) Math.round((((Long) map.get("duration"))) / 1000000f);
+        songLenghtBytes = Math.round(((Integer) map.get("mp3.length.bytes")));
+        // Если есть mp3 тег для имени, то берем его, если нет, то вытаскиваем название из имени файла
+        String songName;
+        if (map.get("title") != null) {
+          songName = map.get("title").toString();
+        } else {
+          songName = FileUtils.getFileNameWithoutExtension(new File(o.toString()).getName());
         }
-    }
-
-    @Override
-    public void playerStop() {
-        try {
-            basicPlayer.stop();
-        } catch (BasicPlayerException e) {
-            Logger.getLogger(MainPlayer.class.getName()).log(Level.SEVERE, null, e);
+        // Если длинное название, то укоротить его
+        if (songName.length() > 30) {
+          songName = songName.substring(0, 30) + "...";
         }
-    }
+        listener.callbackPlayStarted(songName); // callback
+      }
 
-    @Override
-    public void playerPause() {
-        try {
-            basicPlayer.pause();
-        } catch (BasicPlayerException e) {
-            Logger.getLogger(MainPlayer.class.getName()).log(Level.SEVERE, null, e);
+      @Override
+      public void stateUpdated(BasicPlayerEvent event) {
+        int state = event.getCode();
+        if (state == BasicPlayerEvent.EOM) {
+          listener.callbackPlayFinished(); // callback
         }
-    }
+      }
 
-    /**
-     * Метод регулирует звук при проигрывании песни
-     *
-     * @param controlValue double
-     */
-    @Override
-    public void playerSetVolume(double controlValue) {
-        try {
-            volumeCurrent = controlValue / MAX_VOLUME;
-            basicPlayer.setGain(volumeCurrent);
-        } catch (BasicPlayerException e) {
-            Logger.getLogger(MainPlayer.class.getName()).log(Level.SEVERE, null, e);
-        }
-    }
+      @Override
+      public void setController(BasicController basicController) {
+      }
+    });
+  }
 
-    /**
-     * Метод отвечает за перемотку песни
-     *
-     * @param rewindPosition double
-     */
-    @Override
-    public void playerRewind(double rewindPosition) {
-        try {
-            long skipBytes = Math.round(songLenghtBytes * rewindPosition);
-            basicPlayer.seek(skipBytes);
-            basicPlayer.setGain(volumeCurrent);
-        } catch (BasicPlayerException e) {
-            Logger.getLogger(MainPlayer.class.getName()).log(Level.SEVERE, null, e);
-        }
+
+  @Override
+  public void playerPlay(String fileName) {
+    try {
+      // Если включают ту же самую песню, которая была на паузе
+      if (songCurrentFileName != null
+          && songCurrentFileName.equals(fileName)
+          && basicPlayer.getStatus() == BasicPlayer.PAUSED) {
+        basicPlayer.resume();
+        return;
+      }
+      File mp3File = new File(fileName);
+      songCurrentFileName = fileName;
+      basicPlayer.open(mp3File);
+      basicPlayer.play();
+      basicPlayer.setGain(volumeCurrent);
+    } catch (BasicPlayerException e) {
+      Logger.getLogger(MainPlayer.class.getName()).log(Level.SEVERE, null, e);
     }
+  }
+
+  @Override
+  public void playerStop() {
+    try {
+      basicPlayer.stop();
+    } catch (BasicPlayerException e) {
+      Logger.getLogger(MainPlayer.class.getName()).log(Level.SEVERE, null, e);
+    }
+  }
+
+  @Override
+  public void playerPause() {
+    try {
+      basicPlayer.pause();
+    } catch (BasicPlayerException e) {
+      Logger.getLogger(MainPlayer.class.getName()).log(Level.SEVERE, null, e);
+    }
+  }
+
+  /**
+   * Метод регулирует звук при проигрывании песни
+   *
+   * @param controlValue double
+   */
+  @Override
+  public void playerSetVolume(double controlValue) {
+    try {
+      volumeCurrent = controlValue / MAX_VOLUME;
+      basicPlayer.setGain(volumeCurrent);
+    } catch (BasicPlayerException e) {
+      Logger.getLogger(MainPlayer.class.getName()).log(Level.SEVERE, null, e);
+    }
+  }
+
+  /**
+   * Метод отвечает за перемотку песни
+   *
+   * @param rewindPosition double
+   */
+  @Override
+  public void playerRewind(double rewindPosition) {
+    try {
+      long skipBytes = Math.round(songLenghtBytes * rewindPosition);
+      basicPlayer.seek(skipBytes);
+      basicPlayer.setGain(volumeCurrent);
+    } catch (BasicPlayerException e) {
+      Logger.getLogger(MainPlayer.class.getName()).log(Level.SEVERE, null, e);
+    }
+  }
 }

@@ -11,59 +11,61 @@ import java.util.Objects;
  * @author David Levi
  */
 public class Mp3File implements Serializable {
-    private String name;
-    private String path;
-    private int duration;
 
-    public Mp3File(String name, String path) {
-        this.name = name;
-        this.path = path;
-    }
+  private String name;
+  private String path;
+  private int duration;
 
-    public String getName() {
-        return name;
-    }
+  public Mp3File(String name, String path) {
+    this.name = name;
+    this.path = path;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public String getPath() {
-        return path;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setPath(String path) {
-        this.path = path;
-    }
+  public String getPath() {
+    return path;
+  }
 
-    public int getDuration() {
-        return duration;
-    }
+  public void setPath(String path) {
+    this.path = path;
+  }
 
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
+  public int getDuration() {
+    return duration;
+  }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof Mp3File))
-            return false;
-        Mp3File mp3File = (Mp3File) obj;
-        return path.equals(mp3File.getPath());
-    }
+  public void setDuration(int duration) {
+    this.duration = duration;
+  }
 
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 29 * hash + Objects.hashCode(this.path);
-        return hash;
+  @Override
+  public boolean equals(Object obj) {
+    if (!(obj instanceof Mp3File)) {
+      return false;
     }
+    Mp3File mp3File = (Mp3File) obj;
+    return path.equals(mp3File.getPath());
+  }
 
-    /**
-     * Для корректного отображения объекта Mp3File при добавлении в плейлист
-     */
-    @Override
-    public String toString() {
-        return FileUtils.getFileNameWithoutExtension(name);
-    }
+  @Override
+  public int hashCode() {
+    int hash = 5;
+    hash = 29 * hash + Objects.hashCode(this.path);
+    return hash;
+  }
+
+  /**
+   * Для корректного отображения объекта Mp3File при добавлении в плейлист
+   */
+  @Override
+  public String toString() {
+    return FileUtils.getFileNameWithoutExtension(name);
+  }
 }

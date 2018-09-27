@@ -10,23 +10,24 @@ import javax.swing.filechooser.FileFilter;
  */
 
 public class PlaylistFileFilter extends FileFilter {
-    private final String fileExtension;
-    private final String fileDescription;
 
-    public PlaylistFileFilter(String fileExtension, String fileDescription) {
-        this.fileExtension = fileExtension;
-        this.fileDescription = fileDescription;
-    }
+  private final String fileExtension;
+  private final String fileDescription;
 
-    @Override
-    public boolean accept(File file) {
-        // Разрешить только папки, а также файлы с расширением mp3
-        return file.isDirectory() || file.getAbsolutePath().endsWith(fileExtension);
-    }
+  public PlaylistFileFilter(String fileExtension, String fileDescription) {
+    this.fileExtension = fileExtension;
+    this.fileDescription = fileDescription;
+  }
 
-    @Override
-    public String getDescription() {
-        // Описание для формата mp3 при выборе в диалоговом окне
-        return fileDescription + " (*." + fileExtension + ")";
-    }
+  @Override
+  public boolean accept(File file) {
+    // Разрешить только папки, а также файлы с расширением mp3
+    return file.isDirectory() || file.getAbsolutePath().endsWith(fileExtension);
+  }
+
+  @Override
+  public String getDescription() {
+    // Описание для формата mp3 при выборе в диалоговом окне
+    return fileDescription + " (*." + fileExtension + ")";
+  }
 }

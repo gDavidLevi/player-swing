@@ -15,31 +15,33 @@ import javax.swing.JList;
  * https://docs.oracle.com/javase/tutorial/uiswing/dnd/
  */
 public class JListDndAdapter extends DropTargetAdapter {
-    private JList playlist;
 
-    public JListDndAdapter(JList playlist) {
-        this.playlist = playlist;
-    }
+  private JList playlist;
 
-    @Override
-    public void drop(DropTargetDropEvent event) {
-        Transferable transferable = event.getTransferable();
-        if (event.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
-            event.acceptDrop(event.getDropAction());
-            try {
-                List<File> fileList = (List<File>) transferable.getTransferData(DataFlavor.javaFileListFlavor);
-                if (fileList.size() > 0) {
-                    for (File file : fileList) {
-                        Mp3File mp3File = new Mp3File(file.getName(), file.getPath());
-                        ((DefaultListModel) playlist.getModel()).addElement(mp3File);
-                    }
-                    event.dropComplete(true);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            event.rejectDrop();
+  public JListDndAdapter(JList playlist) {
+    this.playlist = playlist;
+  }
+
+  @Override
+  public void drop(DropTargetDropEvent event) {
+    Transferable transferable = event.getTransferable();
+    if (event.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
+      event.acceptDrop(event.getDropAction());
+      try {
+        List<File> fileList = (List<File>) transferable
+            .getTransferData(DataFlavor.javaFileListFlavor);
+        if (fileList.size() > 0) {
+          for (File file : fileList) {
+            Mp3File mp3File = new Mp3File(file.getName(), file.getPath());
+            ((DefaultListModel) playlist.getModel()).addElement(mp3File);
+          }
+          event.dropComplete(true);
         }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    } else {
+      event.rejectDrop();
     }
+  }
 }
