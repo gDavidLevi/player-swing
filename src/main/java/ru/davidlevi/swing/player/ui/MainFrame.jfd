@@ -1,0 +1,245 @@
+JFDML JFormDesigner: "7.0.0.0.117" Java: "1.8.0_152-release" encoding: "UTF-8"
+
+new FormModel {
+	"i18n.bundleName": "localization"
+	"i18n.keyPrefix": "form"
+	"i18n.autoExternalize": true
+	contentType: "form/swing"
+	root: new FormRoot {
+		auxiliary() {
+			"JavaCodeGenerator.bindingInitMethod": true
+		}
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class javax.swing.BoxLayout ) {
+			"axis": 1
+		} ) {
+			name: "this"
+			"maximizedBounds": new java.awt.Rectangle( 8, 8, 8, 8 )
+			"minimumSize": new java.awt.Dimension( 310, 480 )
+			"defaultCloseOperation": 0
+			"iconImage": new com.jformdesigner.model.SwingIcon( 0, "/images/ic_play.png" )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class javax.swing.BoxLayout ) ) {
+				name: "panelSearch"
+				"border": &EmptyBorder0 new javax.swing.border.EmptyBorder( 8, 8, 8, 8 )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "txtSearch"
+					"maximumSize": new java.awt.Dimension( 5008, 24 )
+					"toolTipText": new FormMessage( null, "form.search_song" )
+					"font": new java.awt.Font( "sansserif", 2, 12 )
+					addEvent( new FormEvent( "java.awt.event.FocusListener", "focusGained", "textFieldSearchFocusGained", true ) )
+					addEvent( new FormEvent( "java.awt.event.FocusListener", "focusLost", "textFieldSearchFocusLost", true ) )
+					addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "txtSearchKeyPressed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "buttonSearch"
+					"text": new FormMessage( null, "form.find" )
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/ic_search.png" )
+					"minimumSize": new java.awt.Dimension( 24, 24 )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "buttonSearchActionPerformed", true ) )
+				} )
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class javax.swing.BoxLayout ) ) {
+				name: "panelListControl"
+				"border": #EmptyBorder0
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "buttonAddSong"
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/ic_add.png" )
+					"minimumSize": new java.awt.Dimension( 24, 24 )
+					"maximumSize": new java.awt.Dimension( 120, 24 )
+					"toolTipText": new FormMessage( null, "form.add" )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "buttonAddSongActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "buttonDeleteSong"
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/ic_remove.png" )
+					"minimumSize": new java.awt.Dimension( 24, 24 )
+					"maximumSize": new java.awt.Dimension( 120, 24 )
+					"toolTipText": new FormMessage( null, "form.delete" )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "buttonDeleteSongActionPerformed", true ) )
+				} )
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane"
+				add( new FormComponent( "javax.swing.JList" ) {
+					name: "lstPlayList"
+				} )
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class javax.swing.BoxLayout ) {
+				"axis": 1
+			} ) {
+				name: "panelProgress"
+				"border": new javax.swing.border.EmptyBorder( 0, 8, 0, 8 )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "labelSongName"
+					"text": new FormMessage( null, "form.song_name" )
+					"horizontalAlignment": 0
+				} )
+				add( new FormComponent( "javax.swing.JSlider" ) {
+					name: "sliderProgress"
+					"maximum": 1000
+					"value": 0
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseReleased", "sliderProgressMouseReleased", true ) )
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "sliderProgressMousePressed", true ) )
+				} )
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class javax.swing.BoxLayout ) {
+				"axis": 0
+			} ) {
+				name: "panelVolume"
+				"border": new javax.swing.border.EmptyBorder( 0, 8, 0, 8 )
+				add( new FormComponent( "javax.swing.JToggleButton" ) {
+					name: "toggleButtonMute"
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/ic_speaker.png" )
+					"selectedIcon": new com.jformdesigner.model.SwingIcon( 0, "/images/ic_speaker_mute.png" )
+					"maximumSize": new java.awt.Dimension( 26, 26 )
+					"minimumSize": new java.awt.Dimension( 26, 26 )
+					"preferredSize": new java.awt.Dimension( 26, 26 )
+					"foreground": new com.jformdesigner.model.SwingColor( "FormattedTextField.foreground" )
+					"background": new com.jformdesigner.model.SwingColor( "Button.background" )
+					"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+					"borderPainted": false
+					"toolTipText": new FormMessage( null, "form.mute" )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "toggleButtonMuteActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JSlider" ) {
+					name: "slideVolume"
+					"toolTipText": new FormMessage( null, "form.volume" )
+					"value": 20
+					"minorTickSpacing": 5
+					addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "slideVolumeStateChanged", true ) )
+					addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "slideVolumeStateChanged", true ) )
+				} )
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class javax.swing.BoxLayout ) ) {
+				name: "panelPlayerControl"
+				"border": #EmptyBorder0
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "buttonPreviousSong"
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/ic_previous.png" )
+					"minimumSize": new java.awt.Dimension( 24, 24 )
+					"toolTipText": new FormMessage( null, "form.previous" )
+					"maximumSize": new java.awt.Dimension( 120, 24 )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "buttonPreviousSongActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "buttonPlaySong"
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/ic_play.png" )
+					"minimumSize": new java.awt.Dimension( 24, 24 )
+					"maximumSize": new java.awt.Dimension( 120, 24 )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "buttonPlaySongActionPerformed", true ) )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "buttonPlaySongActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "buttonPauseSong"
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/ic_pause.png" )
+					"minimumSize": new java.awt.Dimension( 24, 24 )
+					"toolTipText": new FormMessage( null, "form.pause" )
+					"maximumSize": new java.awt.Dimension( 120, 24 )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "buttonStopSongActionPerformed", true ) )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "buttonPauseSongActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "buttonStopSong"
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/ic_stop.png" )
+					"minimumSize": new java.awt.Dimension( 24, 24 )
+					"toolTipText": new FormMessage( null, "form.stop" )
+					"maximumSize": new java.awt.Dimension( 120, 24 )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "buttonStopSongActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "buttonNextSong"
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/ic_next.png" )
+					"minimumSize": new java.awt.Dimension( 24, 24 )
+					"toolTipText": new FormMessage( null, "form.next" )
+					"maximumSize": new java.awt.Dimension( 120, 24 )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "buttonNextSongActionPerformed", true ) )
+				} )
+			} )
+			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
+				name: "menuBar"
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu1"
+					"text": new FormMessage( null, "form.menu_file" )
+					"preferredSize": new java.awt.Dimension( 32, 24 )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItemOpenPlaylist"
+						"text": new FormMessage( null, "form.playlist_open" )
+						"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/ic_open.png" )
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItemOpenPlaylistActionPerformed", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItemSavePlaylist"
+						"text": new FormMessage( null, "form.playlist_save" )
+						"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/ic_save.png" )
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItemSavePlaylistActionPerformed", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+						name: "separator"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItemExit"
+						"text": new FormMessage( null, "form.exit" )
+						"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/ic_exit.png" )
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItemExitActionPerformed", true ) )
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu2"
+					"text": new FormMessage( null, "form.menu_service" )
+					"preferredSize": new java.awt.Dimension( 48, 24 )
+					add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+						name: "menu3"
+						"text": new FormMessage( null, "form.themes" )
+						"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/ic_settings.png" )
+						"preferredSize": new java.awt.Dimension( 102, 24 )
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "menuItemSkin1"
+							"text": new FormMessage( null, "form.skin1" )
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItemSkin1ActionPerformed", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "menuItemSkin2"
+							"text": new FormMessage( null, "form.skin2" )
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItemSkin2ActionPerformed", true ) )
+						} )
+					} )
+				} )
+			}
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 5 )
+			"size": new java.awt.Dimension( 310, 485 )
+		} )
+		add( new FormComponent( "javax.swing.JFileChooser" ) {
+			name: "fileChooser"
+			"acceptAllFileFilterUsed": false
+			"multiSelectionEnabled": true
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 315, 5 )
+			"size": new java.awt.Dimension( 565, 270 )
+		} )
+		add( new FormContainer( "javax.swing.JPopupMenu", new FormLayoutManager( class javax.swing.JPopupMenu ) ) {
+			name: "popupMenuPlaylist"
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "menuItemPopUpAdd"
+				"text": new FormMessage( null, "form.add" )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItemPopUpAddActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "menuItemPopUpClear"
+				"text": new FormMessage( null, "form.clear" )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItemPopUpClearActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "menuItemPopUpDelete"
+				"text": new FormMessage( null, "form.delete" )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItemPopUpDeleteActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "menuItemPopUpOpenPlaylist"
+				"text": new FormMessage( null, "form.playlist_open" )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItemPopUpOpenPlaylistActionPerformed", true ) )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 315, 280 )
+		} )
+	}
+}
